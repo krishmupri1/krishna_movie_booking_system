@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.krishnamurari.springboottiketbookings.ServiceLayer.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +34,9 @@ public class TicketBookingController {
 	
 	@Autowired
 	CityDAO theCityDAO;
-	
+	@Autowired
+	Admin admin;
+
 	@Autowired
 	MovieDAO theMovieDAO;
 	
@@ -52,7 +55,10 @@ public class TicketBookingController {
 //	For debugging purpose
 	@GetMapping("/test")
 	public String returnString() {
-		return "hellow world";
+		return admin.printHello();
+
+
+
 	}
 	
 	

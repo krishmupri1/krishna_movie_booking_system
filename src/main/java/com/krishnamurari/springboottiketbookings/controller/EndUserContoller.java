@@ -3,7 +3,10 @@ package com.krishnamurari.springboottiketbookings.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+import com.krishnamurari.springboottiketbookings.ServiceLayer.User;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +32,8 @@ public class EndUserContoller {
 
 	@Autowired
 	CityDAO theCityDAO;
+	@Autowired
+	User user;
 	
 	@Autowired
 	MovieDAO theMovieDAO;
@@ -47,14 +52,14 @@ public class EndUserContoller {
 	@GetMapping("/city")
 	public List<City> getAllCity(){
 		
-		return theCityDAO.getCity();
+		return user.getAllCity();
 	}
 	
 	
 //	GEt list of theater Available against a City
 	
 	@GetMapping("/{ID}/theater")
-	public List<Theater> getTheaterInCity(@PathVariable(value = "ID") long ID){
+	public List<Theater> getTheaterInCity(@NotNull @PathVariable(value = "ID") long ID){
 		
 		City theCity = theCityDAO.findOne(ID);
 		
@@ -64,7 +69,7 @@ public class EndUserContoller {
 //	Get Movie available on the theaters
 	
 	@GetMapping("/theater/{ID}/movie")
-	public List<Object[]> getMovieByTheaterID(@PathVariable(value = "ID") long ID){
+	public List<Object[]> getMovieByTheaterID(@NotNull @PathVariable(value = "ID") long ID){
 		
 		return theMovieDAO.getMovieByTheaterId(ID);
 	}
@@ -76,7 +81,7 @@ public class EndUserContoller {
 //	Get Available Show for a particular movie 
 	
 	@GetMapping("/movie/{id}/show")
-	public List<Show> geShowByMovieId(@PathVariable(value ="id") long id){
+	public List<Show> geShowByMovieId(@NotNull @PathVariable(value ="id") long id){
 		
 		Movie theMovie = theMovieDAO.findOne(id);
 	
@@ -86,7 +91,7 @@ public class EndUserContoller {
 //	Get the seat available for a particular Show using the show ID
 	
 	@GetMapping("/show/{id}")
-	public Bookings getAvailableSeat(@PathVariable ( value = "id") long id)
+	public Bookings getAvailableSeat(@NotNull @PathVariable ( value = "id") long id)throws InvalidArgumentException
 	{
 		return theBookingsDAO.getAvailableSeat(id);
 	}

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 //import org.hibernate.validator.constraints.NotBlank;
@@ -25,13 +26,13 @@ public class City {
 	private long C_id;
 	
 	@Column(nullable=false)
-	@NotBlank
+	@NotNull
 	private String C_name;
 	
-	@NotBlank
+	@NotNull
 	private String C_pincode;
 	
-	@NotBlank
+	@NotNull
 	private String C_state;
 	
 	@OneToMany(mappedBy="city")
